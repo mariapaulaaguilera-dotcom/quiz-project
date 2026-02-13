@@ -12,6 +12,7 @@ interface Personality {
   tagline: string;
   emoji: string;
   color: string;
+  image: string;
 }
 
 const personalities: Record<PersonalityKey, Personality> = {
@@ -21,6 +22,7 @@ const personalities: Record<PersonalityKey, Personality> = {
     tagline: "Life's too short for bitter",
     emoji: "🍰",
     color: "#e8a0bf",
+    image: "/coffee/caramel-latte.jpg",
   },
   zen: {
     name: "Zen Minimalist",
@@ -28,6 +30,7 @@ const personalities: Record<PersonalityKey, Personality> = {
     tagline: "Simple. Clean. Perfect.",
     emoji: "🧘",
     color: "#b0c4b1",
+    image: "/coffee/black-coffee.jpg",
   },
   social: {
     name: "Social Butterfly",
@@ -35,6 +38,7 @@ const personalities: Record<PersonalityKey, Personality> = {
     tagline: "Coffee is better with company",
     emoji: "🎉",
     color: "#f5c96a",
+    image: "/coffee/cappuccino.jpg",
   },
   health: {
     name: "Health Nut",
@@ -42,6 +46,7 @@ const personalities: Record<PersonalityKey, Personality> = {
     tagline: "Wellness in every sip",
     emoji: "🌿",
     color: "#8cbf7f",
+    image: "/coffee/oat-milk-americano.jpg",
   },
 };
 
@@ -353,10 +358,26 @@ export default function Home() {
       >
         {/* top result */}
         <div className="mb-8 text-center">
-          <p className="mb-1 text-sm font-semibold uppercase tracking-widest" style={{ color: "var(--muted)" }}>
+          <p className="mb-3 text-sm font-semibold uppercase tracking-widest" style={{ color: "var(--muted)" }}>
             Your coffee personality is...
           </p>
-          <p className="mb-2 text-5xl">{top.emoji}</p>
+          <div
+            className="mx-auto mb-4 overflow-hidden"
+            style={{
+              width: "140px",
+              height: "140px",
+              borderRadius: "50%",
+              border: "4px solid var(--accent)",
+              boxShadow: "0 4px 16px rgba(107,76,59,0.15)",
+            }}
+          >
+            <img
+              src={top.image}
+              alt={top.coffee}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          </div>
+          <p className="mb-2 text-4xl">{top.emoji}</p>
           <h2
             className="mb-1 text-3xl font-bold"
             style={{ fontFamily: "var(--font-playfair), serif", color: "var(--warm-brown)" }}
@@ -398,7 +419,17 @@ export default function Home() {
               >
                 <div className="mb-2 flex items-center justify-between">
                   <span className="flex items-center gap-2 font-semibold">
-                    <span className="text-xl">{p.emoji}</span>
+                    <img
+                      src={p.image}
+                      alt={p.coffee}
+                      style={{
+                        width: "36px",
+                        height: "36px",
+                        borderRadius: "50%",
+                        objectFit: "cover",
+                        border: isTop ? "2px solid var(--accent)" : "2px solid var(--beige)",
+                      }}
+                    />
                     {p.name}
                     {isTop && (
                       <span
