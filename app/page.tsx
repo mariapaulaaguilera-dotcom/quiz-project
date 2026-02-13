@@ -130,6 +130,7 @@ export default function Home() {
   const [answers, setAnswers] = useState<PersonalityKey[]>([]);
   const [selected, setSelected] = useState<number | null>(null);
   const [transition, setTransition] = useState<"visible" | "fade-out" | "fade-in">("visible");
+  const [copied, setCopied] = useState(false);
 
   /* ── handlers ── */
 
@@ -437,23 +438,56 @@ export default function Home() {
           })}
         </div>
 
-        {/* retake */}
-        <div className="mt-8 text-center">
-          <button
-            onClick={startQuiz}
-            className="cursor-pointer text-base font-semibold text-white transition-colors"
-            style={{
-              background: "var(--accent)",
-              borderRadius: "9999px",
-              padding: "0.75rem 2rem",
-              border: "none",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "var(--accent-hover)")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "var(--accent)")}
-          >
-            Retake Quiz 🔄
-          </button>
-          <p className="mt-3 text-xs" style={{ color: "var(--muted)" }}>
+        {/* actions */}
+        <div className="mt-8 flex flex-col items-center gap-3">
+          <div className="flex gap-3">
+            <button
+              onClick={() => {
+                const breakdown = results
+                  .filter(({ pct }) => pct > 0)
+                  .map(({ key, pct }) => `${personalities[key].emoji} ${personalities[key].name}: ${pct}%`)
+                  .join("\n");
+                const text = `☕ My Coffee Personality: ${top.emoji} ${top.name}!\n"${top.tagline}"\n\nMy drink: ${top.coffee}\n\n${breakdown}\n\nFind yours at Basecamp Coffee!`;
+
+                if (navigator.share) {
+                  navigator.share({ title: "My Coffee Personality", text });
+                } else {
+                  navigator.clipboard.writeText(text).then(() => {
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  });
+                }
+              }}
+              className="cursor-pointer text-base font-semibold transition-colors"
+              style={{
+                background: "var(--warm-brown)",
+                color: "white",
+                borderRadius: "9999px",
+                padding: "0.75rem 2rem",
+                border: "none",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--light-brown)")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "var(--warm-brown)")}
+            >
+              {copied ? "Copied! ✓" : "Share Result 📤"}
+            </button>
+            <button
+              onClick={startQuiz}
+              className="cursor-pointer text-base font-semibold transition-colors"
+              style={{
+                background: "var(--accent)",
+                color: "white",
+                borderRadius: "9999px",
+                padding: "0.75rem 2rem",
+                border: "none",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "var(--accent-hover)")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "var(--accent)")}
+            >
+              Retake Quiz 🔄
+            </button>
+          </div>
+          <p className="mt-1 text-xs" style={{ color: "var(--muted)" }}>
             A Basecamp Coffee experience
           </p>
         </div>
