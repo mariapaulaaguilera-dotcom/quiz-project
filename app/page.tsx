@@ -194,24 +194,24 @@ export default function Home() {
 
   if (screen === "welcome") {
     return (
-      <div className="flex min-h-screen items-center justify-center px-4">
+      <div className="flex min-h-dvh items-center justify-center px-3 py-6 sm:px-4">
         <div
           className="w-full max-w-md text-center"
           style={{
             background: "var(--card-bg)",
             borderRadius: "1.5rem",
-            padding: "3rem 2rem",
+            padding: "clamp(1.5rem, 5vw, 3rem) clamp(1.25rem, 4vw, 2rem)",
             boxShadow: "0 4px 24px rgba(107,76,59,0.10)",
           }}
         >
-          <p className="mb-2 text-5xl">☕</p>
+          <p className="mb-2 text-4xl sm:text-5xl">☕</p>
           <h1
-            className="mb-3 text-3xl font-bold"
+            className="mb-3 text-2xl font-bold sm:text-3xl"
             style={{ fontFamily: "var(--font-playfair), serif", color: "var(--warm-brown)" }}
           >
             What&rsquo;s Your Coffee Personality?
           </h1>
-          <p className="mb-6 text-lg" style={{ color: "var(--muted)" }}>
+          <p className="mb-6 text-base sm:text-lg" style={{ color: "var(--muted)" }}>
             Answer 6 fun questions and discover which coffee matches your vibe.
             <br />
             <span className="text-sm">A Basecamp Coffee experience</span>
@@ -240,18 +240,18 @@ export default function Home() {
     const progress = ((currentQ) / questions.length) * 100;
 
     return (
-      <div className="flex min-h-screen items-center justify-center px-4">
+      <div className="flex min-h-dvh items-center justify-center px-3 py-6 sm:px-4">
         <div
           className="w-full max-w-lg"
           style={{
             background: "var(--card-bg)",
             borderRadius: "1.5rem",
-            padding: "2.5rem 2rem",
+            padding: "clamp(1.5rem, 5vw, 2.5rem) clamp(1rem, 4vw, 2rem)",
             boxShadow: "0 4px 24px rgba(107,76,59,0.10)",
           }}
         >
           {/* progress bar */}
-          <div className="mb-1 flex items-center justify-between text-sm" style={{ color: "var(--muted)" }}>
+          <div className="mb-1 flex items-center justify-between text-xs sm:text-sm" style={{ color: "var(--muted)" }}>
             <span>Question {currentQ + 1} of {questions.length}</span>
             <span>{Math.round(progress)}%</span>
           </div>
@@ -287,25 +287,25 @@ export default function Home() {
             }}
           >
             <h2
-              className="mb-6 text-center text-2xl font-semibold"
+              className="mb-4 text-center text-xl font-semibold sm:mb-6 sm:text-2xl"
               style={{ fontFamily: "var(--font-playfair), serif", color: "var(--warm-brown)" }}
             >
               {q.emoji} {q.question}
             </h2>
 
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2 sm:gap-3">
               {q.answers.map((a, i) => {
                 const isSelected = selected === i;
                 return (
                   <button
                     key={i}
                     onClick={() => pickAnswer(i, a.personality)}
-                    className="cursor-pointer text-left text-base font-medium transition-all"
+                    className="cursor-pointer text-left text-sm font-medium transition-all sm:text-base"
                     style={{
                       display: "flex",
                       alignItems: "center",
                       gap: "0.75rem",
-                      padding: "1rem 1.25rem",
+                      padding: "0.75rem 1rem",
                       borderRadius: "1rem",
                       border: isSelected
                         ? "2px solid var(--accent)"
@@ -346,26 +346,26 @@ export default function Home() {
   const top = personalities[topKey];
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-4 py-10">
+    <div className="flex min-h-dvh items-center justify-center px-3 py-6 sm:px-4">
       <div
         className="w-full max-w-lg"
         style={{
           background: "var(--card-bg)",
           borderRadius: "1.5rem",
-          padding: "2.5rem 2rem",
+          padding: "clamp(1.5rem, 5vw, 2.5rem) clamp(1rem, 4vw, 2rem)",
           boxShadow: "0 4px 24px rgba(107,76,59,0.10)",
         }}
       >
         {/* top result */}
-        <div className="mb-8 text-center">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-widest" style={{ color: "var(--muted)" }}>
+        <div className="mb-6 text-center sm:mb-8">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-widest sm:mb-3 sm:text-sm" style={{ color: "var(--muted)" }}>
             Your coffee personality is...
           </p>
           <div
-            className="mx-auto mb-4 overflow-hidden"
+            className="mx-auto mb-3 overflow-hidden sm:mb-4"
             style={{
-              width: "140px",
-              height: "140px",
+              width: "clamp(100px, 25vw, 140px)",
+              height: "clamp(100px, 25vw, 140px)",
               borderRadius: "50%",
               border: "4px solid var(--accent)",
               boxShadow: "0 4px 16px rgba(107,76,59,0.15)",
@@ -377,14 +377,14 @@ export default function Home() {
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           </div>
-          <p className="mb-2 text-4xl">{top.emoji}</p>
+          <p className="mb-2 text-3xl sm:text-4xl">{top.emoji}</p>
           <h2
-            className="mb-1 text-3xl font-bold"
+            className="mb-1 text-2xl font-bold sm:text-3xl"
             style={{ fontFamily: "var(--font-playfair), serif", color: "var(--warm-brown)" }}
           >
             {top.name}
           </h2>
-          <p className="mb-2 text-lg italic" style={{ color: "var(--muted)" }}>
+          <p className="mb-2 text-base italic sm:text-lg" style={{ color: "var(--muted)" }}>
             &ldquo;{top.tagline}&rdquo;
           </p>
           <p
@@ -403,7 +403,7 @@ export default function Home() {
           Your Full Breakdown
         </h3>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2 sm:gap-3">
           {results.map(({ key, pct }) => {
             const p = personalities[key];
             const isTop = key === topKey;
@@ -412,35 +412,36 @@ export default function Home() {
                 key={key}
                 style={{
                   borderRadius: "1rem",
-                  padding: "1rem 1.25rem",
+                  padding: "clamp(0.75rem, 2vw, 1rem) clamp(0.75rem, 2vw, 1.25rem)",
                   border: isTop ? "2px solid var(--accent)" : "2px solid var(--beige)",
                   background: isTop ? "var(--highlight)" : "var(--card-bg)",
                 }}
               >
-                <div className="mb-2 flex items-center justify-between">
-                  <span className="flex items-center gap-2 font-semibold">
+                <div className="mb-2 flex items-center justify-between gap-2">
+                  <span className="flex items-center gap-2 text-sm font-semibold sm:text-base">
                     <img
                       src={p.image}
                       alt={p.coffee}
+                      className="shrink-0"
                       style={{
-                        width: "36px",
-                        height: "36px",
+                        width: "32px",
+                        height: "32px",
                         borderRadius: "50%",
                         objectFit: "cover",
                         border: isTop ? "2px solid var(--accent)" : "2px solid var(--beige)",
                       }}
                     />
-                    {p.name}
+                    <span className="leading-tight">{p.name}</span>
                     {isTop && (
                       <span
-                        className="ml-1 rounded-full px-2 py-0.5 text-xs font-bold text-white"
+                        className="shrink-0 rounded-full px-2 py-0.5 text-xs font-bold text-white"
                         style={{ background: "var(--accent)" }}
                       >
                         TOP
                       </span>
                     )}
                   </span>
-                  <span className="font-bold" style={{ color: "var(--warm-brown)" }}>
+                  <span className="shrink-0 font-bold" style={{ color: "var(--warm-brown)" }}>
                     {pct}%
                   </span>
                 </div>
@@ -470,8 +471,8 @@ export default function Home() {
         </div>
 
         {/* actions */}
-        <div className="mt-8 flex flex-col items-center gap-3">
-          <div className="flex gap-3">
+        <div className="mt-6 flex flex-col items-center gap-3 sm:mt-8">
+          <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:gap-3">
             <button
               onClick={() => {
                 const breakdown = results
@@ -489,7 +490,7 @@ export default function Home() {
                   });
                 }
               }}
-              className="cursor-pointer text-base font-semibold transition-colors"
+              className="w-full cursor-pointer text-sm font-semibold transition-colors sm:w-auto sm:text-base"
               style={{
                 background: "var(--warm-brown)",
                 color: "white",
@@ -504,7 +505,7 @@ export default function Home() {
             </button>
             <button
               onClick={startQuiz}
-              className="cursor-pointer text-base font-semibold transition-colors"
+              className="w-full cursor-pointer text-sm font-semibold transition-colors sm:w-auto sm:text-base"
               style={{
                 background: "var(--accent)",
                 color: "white",
